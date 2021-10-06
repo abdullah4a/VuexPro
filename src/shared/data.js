@@ -27,6 +27,33 @@ const AddUser = async function(user) {
         console.log("Adding Data Error " + error)
     }
 }
+const MaxId = async function() {
+    try {
+        const responce = await axios.get(`${API}/User.json`);
+        const data = parseList(responce, 200);
+        const maxid = getMaxOfJson(data, data.id)
+            // return maxid
+        console.log(maxid)
+    } catch (err) {
+        console.error("Getting Max Id error" + err);
+    }
+}
+
+function getMaxOfJson(dta, id) {
+    var max = null;
+    for (var i = 0; i < dta.length; i++) {
+        if (max == null) {
+            max = dta[i][id];
+        } else {
+            if (parseFloat(dta[i][id]) > max) {
+
+                max = dta[i][id];
+
+            }
+        }
+    }
+    return max;
+}
 const DeleteUser = async function(user) {
     try {
         const responce = await axios.delete(`${API}/User.json/${user.id}`);
@@ -56,5 +83,6 @@ export const Users = {
     AddUser,
     DeleteUser,
     UpdateUser,
-    getUserbyId
+    getUserbyId,
+    MaxId
 }

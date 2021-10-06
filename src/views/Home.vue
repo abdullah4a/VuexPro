@@ -8,6 +8,54 @@
               <v-icon>mdi-home</v-icon>&nbsp;
               <span>Home</span>
             </v-card-title>
+            <v-card-actions>
+              <v-dialog v-model="Adddialog" max-width="500">
+                <template #activator="{on,attrs}">
+                  <v-btn
+                    plain
+                    rounded
+                    class="primary mb-6"
+                    v-on="on"
+                    v-bind="attrs"
+                  >
+                    <v-icon>mdi-account-plus</v-icon>
+                    <span>&nbsp;Add User</span>
+                  </v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <v-icon>mdi-account-plus</v-icon>
+                    <span>&nbsp;Add User</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-text-field
+                      label="User ID"
+                      v-model="aDDUSER.id"
+                    ></v-text-field>
+                    <v-text-field label="User First Name"></v-text-field>
+                    <v-text-field label="User Last Name"></v-text-field>
+                    <v-text-field label="User Title"></v-text-field>
+                    <v-text-field label="User Message"></v-text-field>
+                    <v-text-field label="User Hobbies"></v-text-field>
+                  </v-card-text>
+                </v-card>
+                <v-card-actions class="primary">
+                  <v-spacer></v-spacer>
+                  <v-btn text rounded>
+                    <v-icon>mdi-plus</v-icon>
+                    <span>&nbsp;Add</span>
+                  </v-btn>
+                  <v-spacer></v-spacer>
+                  <v-btn plain rounded @click="Adddialog = !AddDilog">
+                    <v-icon>
+                      mdi-cancel
+                    </v-icon>
+                    <span>&nbsp;Cancel</span>
+                  </v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-dialog>
+            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -74,6 +122,7 @@ export default {
   data() {
     return {
       deleteDialog: false,
+      Adddialog: false,
       users: [
         // {
         //   Name: "Abdullah Iqbal",
@@ -83,9 +132,19 @@ export default {
         // },
       ],
       UsertoDelete: {},
+      aDDUSER: [
+        {
+          id: 0,
+          Name: "",
+          title: "",
+          message: "",
+          hobbies: "",
+        },
+      ],
     };
   },
   methods: {
+    AddUser() {},
     DeleteUser() {
       Users.DeleteUser(this.UsertoDelete);
       this.deleteDialog = !this.deleteDialog;
@@ -104,6 +163,7 @@ export default {
   },
   async created() {
     await this.LoadUsers();
+    Users.MaxId;
   },
 };
 </script>
