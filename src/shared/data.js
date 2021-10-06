@@ -15,7 +15,7 @@ const UpdateUser = async function(user) {
         const data = parseList(responce, 200);
         return data
     } catch (error) {
-        console.log("Getting Data Error " + error)
+        console.log("Updating Data Error " + error)
     }
 }
 const AddUser = async function(user) {
@@ -24,16 +24,25 @@ const AddUser = async function(user) {
         const data = parseList(responce, 201);
         return data
     } catch (error) {
-        console.log("Getting Data Error " + error)
+        console.log("Adding Data Error " + error)
     }
 }
 const DeleteUser = async function(user) {
     try {
-        const responce = await axios.delete(`${API}/User.json/${user.id}`);
+        const responce = await axios.delete(`${API}/User.json/id:${user.id}`);
         parseList(responce, 200);
         return user.id
     } catch (error) {
-        console.log("Getting Data Error " + error)
+        console.log("Deleting Data Error " + error)
+    }
+}
+const getUserbyId = async function(id) {
+    try {
+
+        const responce = await axios.get(`${API}/User.json/${id}`);
+        parseList(responce, 200);
+    } catch (err) {
+        console.error("Data get By Id Error " + err);
     }
 }
 const parseList = function(responce, code) {
@@ -46,5 +55,6 @@ export const Users = {
     GetUsers,
     AddUser,
     DeleteUser,
-    UpdateUser
+    UpdateUser,
+    getUserbyId
 }

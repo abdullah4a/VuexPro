@@ -51,7 +51,8 @@
                 </v-card>
               </v-dialog>
               <router-link
-                :to="{ name: 'UserDetail', params: { id: card.Name } }"
+                tag="button"
+                :to="{ name: 'UserDetail', params: { id: card.id } }"
               >
                 <v-icon>mdi-pencil</v-icon>
                 <span>Edit</span>
@@ -87,6 +88,7 @@ export default {
   methods: {
     DeleteUser() {
       Users.DeleteUser(this.UsertoDelete);
+      this.deleteDialog = !this.deleteDialog;
     },
     ConfrimtoDelete(u) {
       const index = this.users.findIndex((us) => us.id === u);

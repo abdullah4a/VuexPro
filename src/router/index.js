@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import User from '../views/UserDetail.vue'
+import NotFound from '../views/Notfound.vue'
 
 Vue.use(VueRouter)
 
@@ -13,7 +14,7 @@ const routes = [{
     {
         path: '/userdetail/:id',
         name: 'UserDetail',
-        component: User
+        component: User,
     },
     {
         path: '/about',
@@ -23,7 +24,12 @@ const routes = [{
         // which is lazy-loaded when the route is visited.
         component: () =>
             import ( /* webpackChunkName: "about" */ '../views/About.vue')
-    }
+    },
+    {
+        path: '/*',
+        name: 'NotFound',
+        component: NotFound,
+    },
 ]
 
 const router = new VueRouter({
@@ -33,3 +39,5 @@ const router = new VueRouter({
 })
 
 export default router
+// props: parse,
+// const parse = r => ({ id: parseInt(r.params.id) })
