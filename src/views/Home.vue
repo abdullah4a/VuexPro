@@ -25,16 +25,33 @@
               </p>
             </v-card-text>
             <v-card-actions>
-              <v-dialog width="500">
-                <template #activator:{attrs,on}>
-                  <v-btn plain text v-on="on" v-bind="attrs">
-                    <v-icon>mdi-delete</v-icon>
+              <v-dialog v-model="deleteDialog" width="500">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    v-on="on"
+                    v-bind="attrs"
+                    @click="ConfrimtoDelete(card.id)"
+                    plain
+                    text
+                  >
+                    <v-icon>
+                      mdi-delete
+                    </v-icon>
                     <span>Delete</span>
                   </v-btn>
                 </template>
+                <v-card>
+                  <v-card-title>
+                    Are you sure you want to delete it
+                  </v-card-title>
+                  <v-card-actions>
+                    <v-btn @click="DeleteUser">OK</v-btn>
+                    <v-btn @click="closeDialog">Cancel</v-btn>
+                  </v-card-actions>
+                </v-card>
               </v-dialog>
               <router-link
-                :to="{ name: 'UserDetail', params: { id: 'user.id' } }"
+                :to="{ name: 'UserDetail', params: { id: card.Name } }"
               >
                 <v-icon>mdi-pencil</v-icon>
                 <span>Edit</span>
@@ -55,6 +72,7 @@ export default {
   components: {},
   data() {
     return {
+      deleteDialog: false,
       users: [
         // {
         //   Name: "Abdullah Iqbal",
@@ -63,12 +81,23 @@ export default {
         //   hobbies: "N/A",
         // },
       ],
+      UsertoDelete: {},
     };
   },
   methods: {
+    DeleteUser() {
+      Users.DeleteUser(this.UsertoDelete);
+    },
+    ConfrimtoDelete(u) {
+      const index = this.users.findIndex((us) => us.id === u);
+      this.UsertoDelete = this.users[index];
+      this.deleteDialog = !this.deleteDialog;
+    },
+    closeDialog() {
+      this.deleteDialog = !this.deleteDialog;
+    },
     async LoadUsers() {
       this.users = await Users.GetUsers();
-      console.log(this.users);
     },
   },
   async created() {
