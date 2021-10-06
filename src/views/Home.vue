@@ -1,47 +1,62 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <!-- <div>{{ a }}</div>
-     -->
-    <ul v-for="user in User" :key="user.id">
-      <li>{{ user.id }}</li>
-      <li>{{ user.Name }}</li>
-      <li>{{ user.salary }}</li>
-      <br /><br />
-    </ul>
-    <div>
-      <label for="Uid">ID</label><br />
-      <input type="number" id="Uid" v-model="U.id" /><br />
-      <label for="Name">Name</label><br />
-      <input type="text" id="Name" v-model="U.Name" /><br />
-      <label for="Salary">Salary</label><br />
-      <input type="number" id="Salary" v-model="U.salary" /><br />
-      <button @click="Add">Save</button>
-    </div>
-  </div>
+  <v-app>
+    <v-container>
+      <v-row>
+        <v-col>
+          <v-card>
+            <v-card-title>
+              <v-icon>mdi-home</v-icon>&nbsp;
+              <span>Home</span>
+            </v-card-title>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="6" v-for="card in Users" :key="card.id">
+          <v-card>
+            <v-card-title>{{ card.Name }}</v-card-title>
+            <v-card-subtitle>{{ card.title }}</v-card-subtitle>
+            <v-card-text>
+              <p>
+                {{ card.message }}
+              </p>
+              <p>
+                {{ card.hobbies }}
+              </p>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn>
+                <v-icon>mdi-delete</v-icon>
+                <span>Delete</span>
+              </v-btn>
+              <v-btn>
+                <v-icon>mdi-pencil</v-icon>
+                <span>Edit</span>
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-// @ is an alias to /src
 export default {
   name: "Home",
+
+  components: {},
   data() {
-    return { U: { id: 0, Name: "", salary: 0 } };
-  },
-  methods: {
-    ...mapActions(["UserAddAct"]),
-    Add() {
-      this.UserAddAct(this.U);
-    },
-  },
-  computed: {
-    // a(){
-    //   return this.$store.state.a
-    // }
-    // ...mapState({ a: (state) => state.a }),
-    // ...mapState({ a: "a" }),
-    ...mapState(["User"]),
+    return {
+      Users: [
+        {
+          Name: "Abdullah Iqbal",
+          title: "Software Engineer",
+          message: "He is also Testor and Software Engineer",
+          hobbies: "N/A",
+        },
+      ],
+    };
   },
 };
 </script>
