@@ -29,7 +29,7 @@ const AddUser = async function(user) {
 }
 const DeleteUser = async function(user) {
     try {
-        const responce = await axios.delete(`${API}/User.json/?id=${user.id}`);
+        const responce = await axios.delete(`${API}/User.json/${user.id}`);
         parseList(responce, 200);
         return user.id
     } catch (error) {
