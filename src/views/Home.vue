@@ -42,21 +42,30 @@
 </template>
 
 <script>
+import { Users } from "../shared";
 export default {
   name: "Home",
 
   components: {},
   data() {
     return {
-      Users: [
-        {
-          Name: "Abdullah Iqbal",
-          title: "Software Engineer",
-          message: "He is also Testor and Software Engineer",
-          hobbies: "N/A",
-        },
+      users: [
+        // {
+        //   Name: "Abdullah Iqbal",
+        //   title: "Software Engineer",
+        //   message: "He is also Testor and Software Engineer",
+        //   hobbies: "N/A",
+        // },
       ],
     };
+  },
+  methods: {
+    LoadUsers() {
+if(!Users.GetUsers)throw Error      console.log(this.users);
+    },
+  },
+  created() {
+    this.LoadUsers();
   },
 };
 </script>
