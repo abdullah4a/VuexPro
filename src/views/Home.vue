@@ -146,13 +146,8 @@ export default {
   methods: {
     AddUser() {},
     DeleteUser() {
-      try {
-        Users.DeleteUser(this.UsertoDelete);
-        this.deleteDialog = !this.deleteDialog;
-        return true;
-      } catch (err) {
-        return false;
-      }
+      Users.DeleteUser(this.UsertoDelete);
+      this.deleteDialog = !this.deleteDialog;
     },
     ConfrimtoDelete(u) {
       const index = this.users.findIndex((us) => us.id === u);
@@ -164,16 +159,6 @@ export default {
     },
     async LoadUsers() {
       this.users = await Users.GetUsers();
-    },
-  },
-  watch: {
-    users: {
-      immediate: true,
-      deep: true,
-      handler(newValue, oldValue) {
-        this.LoadUsers();
-        
-      },
     },
   },
   async created() {
