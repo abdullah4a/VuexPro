@@ -36,21 +36,36 @@
                       label="User ID"
                       v-model="aDDUSER.id"
                     ></v-text-field>
-                    <v-text-field label="User First Name"></v-text-field>
-                    <v-text-field label="User Last Name"></v-text-field>
-                    <v-text-field label="User Title"></v-text-field>
-                    <v-text-field label="User Message"></v-text-field>
-                    <v-text-field label="User Hobbies"></v-text-field>
+                    <v-text-field
+                      label="User First Name"
+                      v-model="FName"
+                    ></v-text-field>
+                    <v-text-field
+                      label="User Last Name"
+                      v-model="LstName"
+                    ></v-text-field>
+                    <v-text-field
+                      label="User Title"
+                      v-model="aDDUSER.title"
+                    ></v-text-field>
+                    <v-text-field
+                      label="User Message"
+                      v-model="aDDUSER.message"
+                    ></v-text-field>
+                    <v-text-field
+                      label="User Hobbies"
+                      v-model="aDDUSER.hobbies"
+                    ></v-text-field>
                   </v-card-text>
                 </v-card>
                 <v-card-actions class="primary">
                   <v-spacer></v-spacer>
-                  <v-btn text rounded>
+                  <v-btn text rounded @click="AddUser">
                     <v-icon>mdi-plus</v-icon>
                     <span>&nbsp;Add</span>
                   </v-btn>
                   <v-spacer></v-spacer>
-                  <v-btn plain rounded @click="Adddialog = !AddDilog">
+                  <v-btn plain rounded @click="Adddialog = !Adddialog">
                     <v-icon>
                       mdi-cancel
                     </v-icon>
@@ -145,11 +160,19 @@ export default {
           hobbies: "",
         },
       ],
+      FName: "",
+      LstName: "",
     };
   },
   methods: {
-    AddUser() {},
+    AddUser() {
+      this.aDDUSER.Name = this.FName + this.LstName;
+      console.log(this.aDDUSER);
+      Users.AddUser(this.aDDUSER);
+      this.deleteDialog = !this.deleteDialog;
+    },
     DeleteUser() {
+      console.log(this.UsertoDelete);
       Users.DeleteUser(this.UsertoDelete);
       this.deleteDialog = !this.deleteDialog;
     },
