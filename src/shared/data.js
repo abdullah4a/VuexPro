@@ -59,7 +59,7 @@ const DeleteUser = async function(user) {
     try {
         const responce = await axios.post(`${API}/User.json/${user.id}`);
         parseList(responce, 200);
-        return newArray
+        return user.id
     } catch (error) {
         console.log("Deleting Data Error " + error)
     }
