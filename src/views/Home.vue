@@ -9,6 +9,10 @@
               <span>Home</span>
             </v-card-title>
             <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn @click="LoadUsers" plain>
+                <v-icon>mdi-sync</v-icon>
+              </v-btn>
               <v-dialog v-model="Adddialog" max-width="500">
                 <template #activator="{on,attrs}">
                   <v-btn
@@ -100,7 +104,7 @@
               </v-dialog>
               <router-link
                 tag="button"
-                :to="{ name: 'UserDetail', params: { id: card.id } }"
+                :to="{ name: 'UserDetail', params: { id: card.Name } }"
               >
                 <v-icon>mdi-pencil</v-icon>
                 <span>Edit</span>
