@@ -51,14 +51,16 @@ function getMaxOfJson(dta, id) {
 
             }
         }
+        console.log(max)
     }
     return max;
 }
 const DeleteUser = async function(user) {
     try {
-        const responce = await axios.delete(`${API}/User.json/${user.id}`);
-        parseList(responce, 200);
-        return user.id
+        const responce = await axios.post(`${API}/User.json`, user);
+        parseList(responce, 201);
+        const newArray = GetUsers();
+        return newArray
     } catch (error) {
         console.log("Deleting Data Error " + error)
     }

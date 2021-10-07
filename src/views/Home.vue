@@ -146,12 +146,17 @@ export default {
   methods: {
     AddUser() {},
     DeleteUser() {
-      Users.DeleteUser(this.UsertoDelete);
-      this.deleteDialog = !this.deleteDialog;
+      try {
+        Users.DeleteUser(this.UsertoDelete);
+        this.deleteDialog = !this.deleteDialog;
+        return true;
+      } catch (err) {
+        return false;
+      }
     },
     ConfrimtoDelete(u) {
       const index = this.users.findIndex((us) => us.id === u);
-      this.UsertoDelete = this.users[index];
+      this.UsertoDelete = { ...this.users.splice(index, 1) };
       this.deleteDialog = !this.deleteDialog;
     },
     closeDialog() {
@@ -159,6 +164,16 @@ export default {
     },
     async LoadUsers() {
       this.users = await Users.GetUsers();
+    },
+  },
+  watch: {
+    users: {
+      immediate: true,
+      deep: true,
+      handler(newValue, oldValue) {
+        this.LoadUsers();
+        
+      },
     },
   },
   async created() {
