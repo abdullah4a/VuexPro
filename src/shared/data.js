@@ -2,7 +2,7 @@ import { API } from "./config"
 import axios from "axios"
 const GetUsers = async function() {
     try {
-        const responce = await axios.get(`${API}/User.json`);
+        const responce = await axios.get(`${API}/User`);
         const data = parseList(responce, 200);
         return data
     } catch (error) {
@@ -20,11 +20,8 @@ const UpdateUser = async function(user) {
 }
 const AddUser = async function(user) {
     try {
-        //     "http://localhost:8080/api/Users.json?id=7&Name="
-        //     Abdullah Khan "&title="
-        //     Testor ""
         console.log(user)
-        const responce = await axios.post(`${API}/User.json?id=${user.id}`, user);
+        const responce = await axios.post(`${API}/User.json:id=${user.id}`, user);
         const data = parseList(responce, 201);
         return data
     } catch (error) {
@@ -61,8 +58,8 @@ function getMaxOfJson(dta, id) {
 }
 const DeleteUser = async function(user) {
     try {
-        // const responce = await axios.post(`${API}/User.json/${user.id}`);
-        const responce = await axios.delete(`${API}/User.json?id=${user.id}`);
+        const responce = await axios.post(`${API}/User.json/?id=${user.id}`, user);
+        // const responce = await axios.delete(`${API}/User.json?id=${user.id}`);
         parseList(responce, 200);
         return user.id
     } catch (error) {

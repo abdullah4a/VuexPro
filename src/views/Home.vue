@@ -79,6 +79,17 @@
         </v-col>
       </v-row>
       <v-row>
+        <v-col cols="4">
+          <v-text-field
+            label="Search by Id"
+            v-model="input"
+            prepend-icon="mdi-magnify"
+            @keyup.enter="search"
+          >
+          </v-text-field>
+        </v-col>
+      </v-row>
+      <v-row>
         <v-col cols="6" v-for="card in users" :key="card.id">
           <v-card class="primary white--text">
             <v-card-title>{{ card.Name }}</v-card-title>
@@ -133,7 +144,9 @@
 </template>
 
 <script>
+import axios from "axios";
 import { Users } from "../shared";
+import { API } from "../shared/config";
 export default {
   name: "Home",
 
@@ -141,6 +154,7 @@ export default {
   data() {
     return {
       deleteDialog: false,
+      input: "",
       Adddialog: false,
       users: [
         // {
@@ -165,6 +179,16 @@ export default {
     };
   },
   methods: {
+    async search() {
+      axios
+        .get(`${API}/User.json/?query=${this.input}`)
+        .then(function(res) {
+          console.log(JSON.stringify(res.data));
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+    },
     AddUser() {
       this.aDDUSER.Name = this.FName + this.LstName;
       console.log(this.aDDUSER);
